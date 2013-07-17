@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Schedmatic Sched-View</title>
+	<link rel="stylesheet" href="css/normalize.css" />
+	<link rel="stylesheet" href="css/schedview.css" />
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery.schedview.js"></script>
+	<script src="js/schedview.js"></script>
+</head>
+
+<body>
+	<div class="schedview">
+		<div id="colheader">
+			<div></div>
+			<div>Lunes</div>
+			<div>Martes</div>
+			<div>Miércoles</div>
+			<div>Jueves</div>
+			<div>Viernes</div>
+			<div>Sábado</div>
+			<div>Domingo</div>
+		</div>
+		<div id="viewport">
+			<div>
+				<!-- Cada uno de estos segmentos tendrá la altura específica a 1 hora, y serán
+					generados automáticamente de acuerdo al tamaño disponible o a su necesidad. -->
+				<div>08:00</div>
+				<div>09:00</div>
+				<div>10:00</div>
+				<div>11:00</div>
+				<div>12:00</div>
+				<div>13:00</div>
+			</div>
+
+			<!-- Dentro de cada divisor de estos habrá segmentos correspondientes 
+				a los elementos existentes, de un color distinto, elegido de forma aleatoria.
+
+				El fondo deberá permanecer semitransparente para que en caso de empalmes se
+				puedan observar ambas casillas con facilidad, y al recibir el mensaje mouseover
+				deberá hacerse totalmente opaco para permitir leer su contenido.
+
+				Cada uno de ellos se ajustará verticalmente a la altura correspondiente de acuerdo a 
+				la hora de inicio, tendrá la altura equivalente al periodo de tiempo que representa, la
+				anchura correspondiente al contenedor, y serán referenciados en grupo mediante una clase,
+				permitiendo su inclusión y eliminación de acuerdo a la selección del usuario.
+
+				Las columnas vacías a los extremos deberán permanecer ocultas para dar prioridad
+				al contenido actualmente presente y permitir una redimensión adecuada. -->
+
+			<div> <!-- LUNES -->
+				<div class="01381507" data-since="0840" data-until="1000">
+					<div><input type="checkbox" class="selcheck" /></div>
+					<h3 id="title">Dispositivos Electrónicos (L) <span id="moreinfo">1507</span></h3>
+					<span id="content">Verde Cruz Abel</span>
+					<span id="separator">Quinto Semestre</span>
+				</div>
+				<div class="06331507" data-since="1000" data-until="1120">
+					<div><input type="checkbox" class="selcheck" /></div>
+					<h3 id="title">Programación de Sistemas <span id="moreinfo">1507</span></h3>
+					<span id="content">Canto Gallo Rafael</span>
+					<span id="separator">Quinto Semestre</span>
+				</div>
+				<div class="17151507" data-since="1130" data-until="1250">
+					<div><input type="checkbox" class="selcheck" /></div>
+					<h3 id="title">Medición e Instrumentación (L) <span id="moreinfo">1507</span></h3>
+					<span id="content">Nieto Torres Antonio</span>
+					<span id="separator">Quinto Semestre</span>
+				</div>
+			</div>
+
+			<div> <!-- MARTES -->
+				<div class="15001507" data-since="1115" data-until="1330">
+					<div><input type="checkbox" class="selcheck" /></div>
+					<h3 id="title">Diseño y Análisis de Algoritmos <span id="moreinfo">1507</span></h3>
+					<span id="content">Sánchez Hernández Miguel Ángel</span>
+					<span id="separator">Quinto Semestre</span>
+				</div>
+				<div class="15001507" data-since="0900" data-until="1100">
+					<div><input type="checkbox" class="selcheck" /></div>
+					<h3 id="title">Diseño y Análisis de Algoritmos <span id="moreinfo">1507</span></h3>
+					<span id="content">Sánchez Hernández Miguel Ángel</span>
+					<span id="separator">Quinto Semestre</span>
+				</div>
+			</div>
+
+			<div> <!-- MIÉRCOLES -->
+				<div class="01381507" data-since="0840" data-until="1000">
+					<div><input type="checkbox" class="selcheck" /></div>
+					<h3 id="title">Dispositivos Electrónicos (L) <span id="moreinfo">1507</span></h3>
+					<span id="content">Verde Cruz Abel</span>
+					<span id="separator">Quinto Semestre</span>
+				</div>
+				<div class="06331507" data-since="1000" data-until="1120">
+					<div><input type="checkbox" class="selcheck" /></div>
+					<h3 id="title">Programación de Sistemas <span id="moreinfo">1507</span></h3>
+					<span id="content">Canto Gallo Rafael</span>
+					<span id="separator">Quinto Semestre</span>
+				</div>
+				<div class="17151507" data-since="1130" data-until="1250">
+					<div><input type="checkbox" class="selcheck" /></div>
+					<h3 id="title">Medición e Instrumentación (L) <span id="moreinfo">1507</span></h3>
+					<span id="content">Nieto Torres Antonio</span>
+					<span id="separator">Quinto Semestre</span>
+				</div>
+			</div>
+
+			<div> <!-- JUEVES -->
+				<div class="15001507" data-since="1115" data-until="1330">
+					<div><input type="checkbox" class="selcheck" /></div>
+					<h3 id="title">Diseño y Análisis de Algoritmos <span id="moreinfo">1507</span></h3>
+					<span id="content">Sánchez Hernández Miguel Ángel</span>
+					<span id="separator">Quinto Semestre</span>
+				</div>
+				<div class="15001507" data-since="0900" data-until="1100">
+					<div><input type="checkbox" class="selcheck" /></div>
+					<h3 id="title">Diseño y Análisis de Algoritmos <span id="moreinfo">1507</span></h3>
+					<span id="content">Sánchez Hernández Miguel Ángel</span>
+					<span id="separator">Quinto Semestre</span>
+				</div>
+			</div>
+
+			<div> <!-- VIERNES -->
+				<div class="01381507" data-since="0840" data-until="1000">
+					<div><input type="checkbox" class="selcheck" /></div>
+					<h3 id="title">Dispositivos Electrónicos (L) <span id="moreinfo">1507</span></h3>
+					<span id="content">Verde Cruz Abel</span>
+					<span id="separator">Quinto Semestre</span>
+				</div>
+				<div class="06331507" data-since="1000" data-until="1120">
+					<div><input type="checkbox" class="selcheck" /></div>
+					<h3 id="title">Programación de Sistemas <span id="moreinfo">1507</span></h3>
+					<span id="content">Canto Gallo Rafael</span>
+					<span id="separator">Quinto Semestre</span>
+				</div>
+				<div class="17151507" data-since="1130" data-until="1250">
+					<div><input type="checkbox" class="selcheck" /></div>
+					<h3 id="title">Medición e Instrumentación (L) <span id="moreinfo">1507</span></h3>
+					<span id="content">Nieto Torres Antonio</span>
+					<span id="separator">Quinto Semestre</span>
+				</div>
+			</div>
+
+			<div> <!-- SÁBADO -->
+				<div></div>
+			</div>
+
+			<div> <!-- DOMINGO -->
+				<div></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
