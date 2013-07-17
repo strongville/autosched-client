@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="css/main.css" />
+	<meta charset="utf-8" />
+	<script src="js/jquery.js"></script>
+	<script src="js/schedmatic.js"></script>
+	<title>Consulta de horarios</title>
+</head>
+<body>
+
+	<h1>Horarios del semestre 2014-1</h1>
+
+	<noscript>
+		<p>Debes habilitar JavaScript para usar el selector de horarios.</p>
+		<!-- A FUTURO: Mostrar una tabla con todos los horarios disponibles, separados por categoría. -->
+	</noscript>
+
+	<!--[if IE lt 9]>
+	<p>Debes actualizar tu versión de Internet Explorer a 9 o superior. En su defecto, cambia de navegador para utilizar este selector de horarios.</p>
+	<![endif]-->
+
+	<!-- SCHEDMATIC: Container -->
+	<div id="schedmatic">
+	
+		<!-- SCHEDMATIC: Selection and search box -->
+		<div id="selbox">
+			<form><!-- action: /php/sched_updateview.php -->
+				<div class="formdata">
+					<label for="placesel">Plantel:</label>
+					<select id="placesel" disabled>
+						<option>Facultad de Estudios Superiores Aragón</option>
+					</select>
+				</div>
+
+				<div class="formdata">
+					<label for="topicsel">Carrera:</label>
+					<select id="topicsel" disabled>
+						<option>Ingeniería en Computación (Nuevo Plan)</option>
+					</select>
+				</div>
+
+				<div class="formdata">
+					<label for="specialisedsel">Semestre:</label>
+					<select id="specialisedsel" selected>
+						<option>Primer semestre</option>
+						<option>Segundo semestre</option>
+						<option>Tercer semestre</option>
+					</select>
+				</div>
+			</form>
+		</div>
+
+		<!-- SCHEDMATIC: Main area -->
+		<div id="chrome">
+			<!-- Se conmutará entre ambas vistas mediante una opción del entorno gráfico -->
+
+			<!-- SCHEDMATIC: Subject list -->
+			<div class="listview"></div>
+			
+			<!-- SCHEDMATIC: Subject view -->
+			<div class="schedview"></div>
+		</div>
+	</div>
+
+</body>
+</html>
