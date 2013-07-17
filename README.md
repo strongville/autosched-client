@@ -1,4 +1,3 @@
-autosched-client
-================
-
-Selector web de horarios altamente personalizable y fácil de implementar.
+# AutoSched #
+Selector de horarios web fácil de implementar y personalizar.
+Próximamente.
