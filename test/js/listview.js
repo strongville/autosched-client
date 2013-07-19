@@ -20,6 +20,7 @@ $(function() {
 			onCheckBoxSel: function(allcount, selcount, selarray) {
 				console.log('Dentro de ' + this + ' hay ' + selcount + ' elemento(s) seleccionado(s) de ' + allcount +
 					' elementos totales.');
+				console.log(selarray);
 			}
 		})
 

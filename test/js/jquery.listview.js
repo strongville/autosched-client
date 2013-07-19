@@ -42,21 +42,33 @@ Requiere jQuery 1.10.* o 2.*
 			var columns = $(this.element).find('#colheader div').length,
 				items = $(this.element).find('li:not(.separator)').length;
 			for (var i = 1; i <= items; i++) {
-				var currentdom = $(this.element).find('li:not(.separator)').get(i - 1);
+				var currentdom = $(this.element).find('li:not(.separator)').get(i - 1),
+					offset = (this.options.useCheckboxes) ? 1 : 0;
 				for (var j = 1; j <= columns; j++) {
-					$(currentdom).find('div:nth-child(' + j + ')')
+					$(currentdom).find('div:nth-child(' + (j + offset) + ')')
 						.width( this._getWidthFromCol(j) );
 				}
 			}
 		},
 
 		// DATOS DE COLUMNA
+		// Al realizar operaciones con columnas, la de casillas no debe contar ni ser accesible, en caso de existir.
 		_getWidthFromCol: function(index) {
+			// Para el usuario, la columna de casillas NO DEBE CONTAR.
+			if (this.options.useCheckboxes)
+				index++;
 			return $(this.element).find('#colheader div:nth-child(' + index + ')').data('width');
 		},
 
 		_getTitleFromCol: function(index) {
+			// El que llama esta función debe considerar la presencia de la columna adicional.
 			return $(this.element).find('#colheader div:nth-child(' + index + ')').html().trim();
+		},
+
+		_getColumnsCount: function() {
+			var colcount = $(this.element).find('#colheader div').length;
+			// La columna de casillas se excluye del conteo.
+			return (this.options.useCheckboxes) ? --colcount : colcount;
 		},
 
 		// ELEMENTOS DE LISTA
@@ -71,19 +83,55 @@ Requiere jQuery 1.10.* o 2.*
 				return -1;
 		},
 
-		_getSelectedArrayData: function() {
+		_getDataFromItem: function(num) {
+			// Aislar a partir de la lista el elemento del cual se sacarán los datos.
+			var result = {},
+				desired = $('li:not(.separator, #colheader)', this.element).get(num - 1);
+
+			// Boolean checked: Indica si el elemento está seleccionado o no.
+			// Integer index: Repite el índice del elemento en base 0.
+			// Boolean separator: Indica si el objeto se visualiza como un separador o no.
+			// Object data: Envía los datos encontrados en cada columna como un arreglo asociativo. null si es separador.
+			// String caption: Título que muestra el separador. null si NO es separador.
+			//result['separator'] = $(desired).hasClass('separator');
+			result['index'] = num - 1;
+
+			// Verificar las condiciones para que exista una casilla de verificación (valga la redundancia)
+			//     antes de siquiera intentar acceder a los datos de la misma.
+			if (/*!result.separator &&*/ this.options.useCheckboxes)
+				result['checked'] = $(desired).find('.checkcol #tickmark').is(':checked');
+			/*else
+				result['checked'] = false;*/
+
+			// El desplazamiento debe ser indicado para no devolver los datos de las casillas
+			/*if (!result.separator) {*/
+				result['data'] = {};
+				var despla = 0;
+				if (this.options.useCheckboxes)
+					despla++;
+
+				for (var i = 1; i <= this._getColumnsCount(); i++) {
+					result.data[ this._getTitleFromCol(i + despla) ] =
+						$(desired).find('div:nth-child(' + (i + despla) + ')').html().trim();
+				}
+				//result['caption'] = null;
+			/*}
+			else {
+				result['caption'] = $(desired).find('div').html().trim();
+				result['data'] = null;
+			}*/
+
+			return result;
+		},
+
+		// OBTENER DATOS DE LA LISTA
+		_getSelectedArray: function() {
 			if (this.options.useCheckboxes) {
-				var selarray = $('li:not(.separator, #colheader)', this.element).find('.checkcol #tickmark:checked'),
-					colarray = $('#colheader div', this.element),
-					result = [];
-
-				for (var i = 0; i < this._getSelectedCount(); i++) {
-					var currentdom = selarray.get(i),
-						currentobj = {};
-					$('div', currentdom).each(function(index, element) {
-						currentobj[selarray]
-					});
-
+				var result = [], currdata = {};
+				for (var i = 1; i <= this._getAllItemsCount(); i++) {
+					currdata = this._getDataFromItem(i);
+					if (currdata.checked)
+						result.push(currdata);
 				}
 				return result;
 			}
@@ -121,16 +169,12 @@ Requiere jQuery 1.10.* o 2.*
 
 					// Permitir la suscripción a un evento para informar del (de los) elemento(s) ahora seleccionado(s)
 					if ( $.isFunction(base.options.onCheckBoxSel) ) {
-						with (base) {
-							options.onCheckBoxSel.apply(element,
-								[allitems, count, _getSelectedArrayData()]);
-						}
+						base.options.onCheckBoxSel.apply(base.element,
+							[allitems, count, base._getSelectedArray()]);
 					}
 
 				});
 			}
-
-			
 		},
 
 		// NUEVO ELEMENTO
@@ -173,7 +217,6 @@ Requiere jQuery 1.10.* o 2.*
 				}
 			}
 			this._updateproc();
-
 		},
 
 		// MODIFICAR ELEMENTO EXISTENTE
@@ -283,7 +326,7 @@ Requiere jQuery 1.10.* o 2.*
 
 		// *num* el número de columna a eliminar, junto con los datos ya establecidos en los elementos
 		'columns.remove': function(num) {
-
+			
 		},
 
 		// *enable* un booleano que indique si las casillas de verificación al lado de los elementos serán incluidas o excluidas
