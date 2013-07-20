@@ -326,7 +326,17 @@ Requiere jQuery 1.10.* o 2.*
 
 		// *num* el número de columna a eliminar, junto con los datos ya establecidos en los elementos
 		'columns.remove': function(num) {
-			
+			if (num > 0 && num < this._getColumnsCount()) {
+				if (this.options.useCheckboxes)
+					num++;
+				$('#colheader', this.element).children('div:nth-child(' + num + ')').remove();
+				var collection = $('li:not(.separator, #colheader)', this.element);
+				for (var i = 0; i < this._getAllItemsCount(); i++) {
+					var current = collection.get(i);
+					$(current).children('div:nth-child(' + num + ')').remove();
+				}
+			}
+			else return;
 		},
 
 		// *enable* un booleano que indique si las casillas de verificación al lado de los elementos serán incluidas o excluidas

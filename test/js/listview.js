@@ -1,18 +1,5 @@
 $(function() {
 
-	var data = {
-		'Facultad de Estudios Superiores Aragón': {
-			'Ingeniería en Computación': {
-				'Teoría': {
-
-				},
-				'Laboratorios': {
-
-				}
-			}
-		}
-	}
-
 	// Crear los elementos del control ListView
 	$('#container')
 		// Inicialización
@@ -47,6 +34,7 @@ $(function() {
 			'Salón': 'A-216',
 			'Grupo': '1607',
 			'Horario': '<strong>Viernes</strong><br>10:00 - 13:00'
-		});
+		})
+		.listview('columns.remove', 1);
 	
 });
