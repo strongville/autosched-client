@@ -212,10 +212,15 @@ Requiere jQuery 1.10.* o 2.*
 					i = 1;
 
 				for ( ; i <= colnumber; i++) {
-					actualcol = $('<div></div>').appendTo(newitem);
+					actualcol = $('<div />').appendTo(newitem);
 					actualcol.html( data[this._getTitleFromCol(i)] );
 				}
 			}
+
+			// Verificar si el usuario desea atributos en el nuevo elemento
+			if (typeof attr === 'object')
+				newitem.attr(attr);
+
 			this._updateproc();
 		},
 

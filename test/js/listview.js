@@ -26,6 +26,9 @@ $(function() {
 			'Salón': 'A-213',
 			'Grupo': '1507',
 			'Horario': '<strong>Martes, Jueves</strong><br>11:15 - 13:30'
+		}, {
+			'id': 'selectedelement',
+			'data-timestamp': 'MJ11151330'
 		})
 		.listview('items.new', null, true, 'Sexto Semestre')
 		.listview('items.new', null, false, {
