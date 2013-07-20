@@ -230,8 +230,9 @@ Requiere jQuery 1.10.* o 2.*
 				itemnum = elems.length,
 				currentelem;
 			if (currentnum > 0 && currentnum <= itemnum) {
-				currentelem = elems.has(':nth-child(' + currentnum + ')');
+				currentelem = $(elems.get(currentnum - 1));
 				var isseparator = currentelem.is('.separator');
+				separator = separator == null ? isseparator : separator;
 				if (isseparator != separator) {
 					currentelem.addClass(separator ? 'separator' : 'listitem').removeClass(separator ? 'listitem' : 'separator');
 					currentelem.children().remove();
@@ -246,14 +247,26 @@ Requiere jQuery 1.10.* o 2.*
 
 					innerdiv.html(data);
 				}
-
-				// PENDIENTE: Agregar código para permitir la opción useCheckboxes
+				
 				else {
+					// Checar el número de columnas en el encabezado y en la fila actual
 					var	colnumber = $('#colheader div').length,
 						cellnum = currentelem.find('div').length,
 						actualcol;
 
-					for (var i = 1; i <= colnumber; i++) {
+					// Igualar el número de columnas en el elemento
+					while (colnumber != cellnum) {
+						if (colnumber > cellnum)
+							$('<div />').appendTo(currentelem);
+						else
+							$(currentelem).find('div').last().remove();
+					}
+
+					// Saltar la primer columna si es la de casillas
+					var i = (this.options.useCheckboxes) ? 2 : 1;
+
+					// Agregar uno a uno los datos correspondientes
+					for ( ; i <= colnumber; i++) {
 						if (colnumber == cellnum)
 							actualcol = currentelem.find('div:nth-child(' + i + ')');
 						else

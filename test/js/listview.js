@@ -38,6 +38,13 @@ $(function() {
 			'Grupo': '1607',
 			'Horario': '<strong>Viernes</strong><br>10:00 - 13:00'
 		})
-		.listview('columns.remove', 1);
+
+		// Modificar un elemento
+		.listview('items.modify', 4, null, null, {
+			'Asignatura<br>Profesor': '<strong>Calidad</strong><br>Almánzar Vázquez María Guadalupe',
+			'Salón': 'A-8121',
+			'Grupo': '1610',
+			'Horario': '<strong>Lunes, Miércoles</strong><br>07:00 - 08:30'
+		});
 	
 });
